@@ -8,7 +8,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     // we can create either 1vs1 conversation or group conversation
     const { userId, isGroup, members, name } = body;
-    console.log(body, currentUser);
     if (!currentUser?.id || !currentUser?.email) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -77,6 +76,7 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(newConversation);
   } catch (err: any) {
+    console.log(err, "SEEN_ERROR");
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
